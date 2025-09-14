@@ -2,6 +2,7 @@
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
 const OrderStatus = require("../models/OrderStatus");
+const WebhookLog = require("../models/WebhookLogs");
 
 async function checkPaymentStatus(collect_request_id) {
   const payload = {
@@ -42,6 +43,10 @@ async function startPaymentWatcher(collect_request_id) {
           data_update,
           { new: true }
         );
+        await WebhookLog.create({
+          payload: data,
+          receivedAt: new Date()
+        });
 
         clearInterval(interval); // stop watching
       }

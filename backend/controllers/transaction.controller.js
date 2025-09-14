@@ -5,16 +5,24 @@ const OrderStatus = require("../models/OrderStatus");
 // GET /transactions
 exports.getAllTransactions = async (req, res) => {
   try {
+    const limit = parseInt(req.query.limit) || 10;
+    const page = parseInt(req.query.page) || 1;
+    const skip = (page - 1) * limit;
+
+    // sorting params
+    const sortField = req.query.sort || "payment_time"; // default field
+    const sortOrder = req.query.order === "asc" ? 1 : -1; // default desc
+
     const transactions = await OrderStatus.aggregate([
       {
         $lookup: {
-          from: "orders",               // collection name of Order model
-          localField: "collect_id",     // field in OrderStatus
-          foreignField: "_id",          // field in Order
+          from: "orders",
+          localField: "collect_id",
+          foreignField: "_id",
           as: "order"
         }
       },
-      { $unwind: "$order" }, // flatten the joined array
+      { $unwind: "$order" },
       {
         $project: {
           _id: 0,
@@ -24,12 +32,16 @@ exports.getAllTransactions = async (req, res) => {
           order_amount: "$order_amount",
           transaction_amount: "$transaction_amount",
           status: "$status",
-          custom_order_id: "$order._id" // ✅ using Order._id as custom_order_id
+          custom_order_id: "$order._id",
+          payment_time: "$payment_time" // needed for sorting
         }
-      }
+      },
+      { $sort: { [sortField]: sortOrder } }, // ✅ dynamic sorting
+      { $skip: skip },
+      { $limit: limit }
     ]);
 
-    return res.json({ transactions });
+    return res.json({ success: true, page, limit, transactions });
   } catch (err) {
     console.error("Error in /transactions:", err.message);
     return res.status(500).json({ success: false, error: "Failed to fetch transactions" });
@@ -42,19 +54,24 @@ exports.getTransactionsBySchool = async (req, res) => {
   try {
     const { schoolId } = req.params;
 
+    const limit = parseInt(req.query.limit) || 10;
+    const page = parseInt(req.query.page) || 1;
+    const skip = (page - 1) * limit;
+
+    const sortField = req.query.sort || "payment_time";
+    const sortOrder = req.query.order === "asc" ? 1 : -1;
+
     const transactions = await OrderStatus.aggregate([
       {
         $lookup: {
-          from: "orders",               // collection name
-          localField: "collect_id",     // from OrderStatus
-          foreignField: "_id",          // from Order
+          from: "orders",
+          localField: "collect_id",
+          foreignField: "_id",
           as: "order"
         }
       },
       { $unwind: "$order" },
-      {
-        $match: { "order.school_id": schoolId } // ✅ filter by schoolId
-      },
+      { $match: { "order.school_id": schoolId } },
       {
         $project: {
           _id: 0,
@@ -64,12 +81,16 @@ exports.getTransactionsBySchool = async (req, res) => {
           order_amount: "$order_amount",
           transaction_amount: "$transaction_amount",
           status: "$status",
-          custom_order_id: "$order._id"
+          custom_order_id: "$order._id",
+          payment_time: "$payment_time"
         }
-      }
+      },
+      { $sort: { [sortField]: sortOrder } },
+      { $skip: skip },
+      { $limit: limit }
     ]);
 
-    return res.json({ success: true, transactions });
+    return res.json({ success: true, page, limit, transactions });  
   } catch (err) {
     console.error("Error in /transactions/school:", err.message);
     return res.status(500).json({ success: false, error: "Failed to fetch school transactions" });
@@ -89,7 +110,7 @@ exports.getTransactionStatus = async (req, res) => {
 
     return res.json({
       success: true,
-      status: transaction.status  // ✅ only returning status
+      status: transaction.status
     });
   } catch (err) {
     console.error("Error in /transaction-status:", err.message);

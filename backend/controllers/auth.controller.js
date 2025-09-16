@@ -1,4 +1,4 @@
-const User = require('../models/user'); // Importing the User model
+const User = require('../models/User'); // Importing the User model
 const {authMiddleware, generateToken} = require('../middlewares/jwt.middleware'); // Importing the JWT middleware for authentication
 const bcrypt = require('bcrypt'); // Importing bcrypt for password hashing
 

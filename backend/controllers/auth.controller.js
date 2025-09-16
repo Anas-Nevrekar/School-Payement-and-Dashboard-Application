@@ -22,7 +22,9 @@ exports.handleLogin = async (req, res) => {
       
       res.cookie("token", token, {
   httpOnly: true,
+  sameSite: "lax", // or "strict"
   maxAge: 7 * 24 * 60 * 60 * 1000
+  // secure: false // do not set secure for localhost
 });
       
       res.json({
@@ -65,7 +67,7 @@ exports.handleRegiester = async (req, res) => {
           const token = generateToken({ userId: newUser._id}); // Generate a JWT token for the user
             res.cookie("token", token, {
             httpOnly: true,
-            sameSite: 'strict',
+            sameSite: 'lax',
             maxAge: 7 * 24 * 60 * 60 * 1000
             }); // Set the token in cookies
 

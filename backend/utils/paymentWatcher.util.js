@@ -2,7 +2,7 @@
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
 const OrderStatus = require("../models/OrderStatus");
-const WebhookLog = require("../models/WebhookLogs");
+const WebhookLog = require("../models/WebHookLogs");
 
 async function checkPaymentStatus(collect_request_id) {
   const payload = {

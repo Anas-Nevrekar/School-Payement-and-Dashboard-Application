@@ -47,6 +47,20 @@ router.post("/callback", (req, res) => {
   `);
 });
 
+router.get("/callback", (req, res) => {
+  res.send(`
+    <html>
+      <head><title>Payment Status</title></head>
+      <body style="display:flex;justify-content:center;align-items:center;height:100vh;background:#f9fafb;font-family:sans-serif;">
+        <div style="background:white;padding:30px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);text-align:center;max-width:400px;">
+          <h1 style="color:blue;margin-bottom:16px;">Payment Callback Endpoint</h1>
+          <p style="font-size:16px;color:#333;">This page is for payment gateway callbacks.<br/>If you’re seeing this directly in your browser, no payment payload was sent.</p>
+        </div>
+      </body>
+    </html>
+  `);
+});
+
 
 
 

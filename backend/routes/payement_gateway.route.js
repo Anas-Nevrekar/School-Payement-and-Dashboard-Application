@@ -8,7 +8,9 @@ router.post('/create-payment', authMiddleware, createPayment)
 router.post("/callback", (req, res) => {
   console.log("Payment callback received:", req.body);
 
-  const status = req.body.status || "PENDING"; // default if missing
+  // Edviron sends: { status: 200, order_info: { status: "SUCCESS" | "FAILED" | "PENDING", ... } }
+  const status =
+    req.body?.order_info?.status || req.body?.status || "PENDING";
 
   let title = "";
   let color = "";
@@ -31,11 +33,10 @@ router.post("/callback", (req, res) => {
       message = "Your payment is still being processed. Please check back later.";
   }
 
+  // Return simple styled HTML page
   res.send(`
     <html>
-      <head>
-        <title>Payment Status</title>
-      </head>
+      <head><title>Payment Status</title></head>
       <body style="display:flex;justify-content:center;align-items:center;height:100vh;background:#f9fafb;font-family:sans-serif;">
         <div style="background:white;padding:30px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);text-align:center;max-width:400px;">
           <h1 style="color:${color};margin-bottom:16px;">${title}</h1>

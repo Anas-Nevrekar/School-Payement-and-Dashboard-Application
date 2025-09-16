@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import "./Dashboard.css";
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000";
 
 // Enhanced Popup component
 function Popup({ message, onClose }) {
@@ -67,8 +68,8 @@ function Dashboard() {
       setLoading(true);
       try {
         const url = schoolId
-          ? `http://localhost:5000/api/transactions/school/${schoolId}?limit=${limit}&page=${page}&sort=${sort}&order=${order}`
-          : `http://localhost:5000/api/transactions/all-transactions?limit=${limit}&page=${page}&sort=${sort}&order=${order}`;
+          ? `${API_BASE}/api/transactions/school/${schoolId}?limit=${limit}&page=${page}&sort=${sort}&order=${order}`
+          : `${API_BASE}/api/transactions/all-transactions?limit=${limit}&page=${page}&sort=${sort}&order=${order}`;
 
         const response = await axios.get(url, { withCredentials: true });
         setTransactions(response.data.transactions || []);
@@ -90,7 +91,7 @@ function Dashboard() {
     setCheckingStatus(true);
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/transactions/transaction-status/${orderId}`,
+        `${API_BASE}/api/transactions/transaction-status/${orderId}`,
         { withCredentials: true }
       );
       setStatusResult(res.data.status);
@@ -104,7 +105,7 @@ function Dashboard() {
   // Logout function (used in Navbar)
   async function handleLogout() {
     try {
-      const res = await axios.get("http://localhost:5000/api/auth/logout", {
+      const res = await axios.get(`${API_BASE}/api/auth/logout`, {
         withCredentials: true,
       });
       setPopupMessage(res.data.message);

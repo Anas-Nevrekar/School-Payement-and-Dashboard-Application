@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "./Navbar";
 import "./CreatePayment.css";
-const API_BASE = import.meta.env.VITE_API_BASE;
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000";
 
 // Success Modal Component
 function SuccessModal({ isOpen, onClose, paymentData }) {

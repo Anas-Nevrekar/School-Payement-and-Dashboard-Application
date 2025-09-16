@@ -9,6 +9,7 @@ function Auth() {
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
   const navigate = useNavigate();
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000";
 
   // Handle input
   const handleChange = (e) => {
@@ -51,8 +52,8 @@ function Auth() {
     try {
       const url =
         mode === "login"
-          ? "http://localhost:5000/api/auth/login"
-          : "http://localhost:5000/api/auth/register";
+          ? `${API_BASE}/api/auth/login`
+          : `${API_BASE}/api/auth/register`;
 
       const payload =
         mode === "login"

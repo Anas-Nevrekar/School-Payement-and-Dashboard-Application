@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Auth from "./Auth";
 import Dashboard from "./Dashboard";
 import CreatePayment from "./CreatePayment";
+import Call_Back_Page from "./Call_Back_Page";
 
 function App() {
   return (

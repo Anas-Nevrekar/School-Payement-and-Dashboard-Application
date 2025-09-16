@@ -25,14 +25,7 @@ function Call_Back_Page() {
         <h1 className="text-2xl font-bold text-green-700 mb-2">Payment Successful!</h1>
         <p className="text-gray-700 mb-6 text-center">
           Thank you! Your payment has been executed.<br />
-          You may now return to your dashboard.
         </p>
-        <Link
-          to="/dashboard"
-          className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
-        >
-          Go to Dashboard
-        </Link>
       </div>
     </div>
   );

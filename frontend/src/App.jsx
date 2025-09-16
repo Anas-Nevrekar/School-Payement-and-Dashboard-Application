@@ -9,6 +9,7 @@ function App() {
       <Route path="/" element={<Auth />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/create-payment" element={< CreatePayment />} />
+      <Route path="/payment/callback" element={<Call_Back_Page />} />
     </Routes>
   );
 }

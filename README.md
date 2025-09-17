@@ -148,5 +148,17 @@ Dashboard with paginated & searchable transactions
 <img width="1348" height="447" alt="image" src="https://github.com/user-attachments/assets/0f91c705-ed74-46eb-977d-69aaa726516c" />
 <img width="1322" height="649" alt="image" src="https://github.com/user-attachments/assets/bfc454ec-44fe-4482-b330-eeb3a0c791cf" />
 
+---
+
+## 📌 Submission
+✅ GitHub Repository (this repo): https://github.com/Anas-Nevrekar/School-Payement-and-Dashboard-Application.git
+✅ Hosted Backend Link: https://school-payement-and-dashboard.onrender.com
+✅ Hosted Frontend Link: https://jade-pixie-e71e4e.netlify.app/
+
+---
+
+##👨‍💻 Author
+Anas Nevrekar
+Student, M.H. Saboo Siddik College of Engineering
 
  

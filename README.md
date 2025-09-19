@@ -157,7 +157,7 @@ Dashboard with paginated & searchable transactions
 
 ---
 
-##👨‍💻 Author
+## 👨‍💻 Author
 Anas Nevrekar
 Student, M.H. Saboo Siddik College of Engineering
 

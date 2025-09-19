@@ -151,8 +151,8 @@ Dashboard with paginated & searchable transactions
 ---
 
 ## 📌 Submission
-✅ GitHub Repository (this repo): https://github.com/Anas-Nevrekar/School-Payement-and-Dashboard-Application.git
-✅ Hosted Backend Link: https://school-payement-and-dashboard.onrender.com
+✅ GitHub Repository (this repo): https://github.com/Anas-Nevrekar/School-Payement-and-Dashboard-Application.git <br>
+✅ Hosted Backend Link: https://school-payement-and-dashboard.onrender.com <br>
 ✅ Hosted Frontend Link: https://jade-pixie-e71e4e.netlify.app/
 
 ---
